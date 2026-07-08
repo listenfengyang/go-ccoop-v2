@@ -28,7 +28,7 @@ func genWithdrawRequestDemo() CCoopV2WithdrawRequest {
 		DestBankAccNo:   "9876543210",            // destination bank account number
 		DestBankAccName: "John Doe",              // destination account holder name
 		DestBankCode:    BankCodeEnum.KBANK.Code, // "004" - KBANK
-		OrderId:         "TEST-WD-001",           // merchant order reference (optional)
+		OrderId:         "TEST-WD-003",           // merchant order reference (optional)
 		// WithdrawCode: "635124",                 // PIN for large withdrawals (if required)
 	}
 }

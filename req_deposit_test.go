@@ -3,6 +3,7 @@ package go_ccoop_v2
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 // VLog is a simple logger implementation for testing
@@ -43,6 +44,16 @@ func TestDeposit(t *testing.T) {
 		t.Errorf("Deposit failed: %s", err.Error())
 		return
 	}
+
+	// Sandbox environment does not return qr_image / qr_image_link.
+	// Mock these values so the PromptPay branch can be exercised in tests.
+	if resp.QrImage == "" {
+		resp.QrImage = "iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2yk..."
+	}
+	if resp.QrImageLink == "" {
+		resp.QrImageLink = "https://storage.googleapis.com/corp-richpay_richman_qr_data/006/CWUMQG-1775190305360-20260403112503-3719ad.png"
+	}
+
 	fmt.Printf("Deposit response: %+v\n", resp)
 	fmt.Printf("Status: %s\n", resp.Status)
 	fmt.Printf("Deposit channel: %s\n", resp.DepositChannel)
@@ -54,16 +65,18 @@ func TestDeposit(t *testing.T) {
 	}
 }
 
-// genDepositRequestDemo builds a sample deposit request for testing
+// genDepositRequestDemo builds a sample deposit request for testing.
+// order_id and ref_account use a timestamp suffix to avoid duplicate/pending transaction errors.
 func genDepositRequestDemo() CCoopV2DepositRequest {
+	ts := time.Now().UnixMilli()
 	return CCoopV2DepositRequest{
-		OrderId:     "TEST-DEP-001",        // unique order ID in your system
-		Amount:      250.00,                // deposit amount in THB
-		RefAccount:  "1234567890",          // customer bank account number
-		RefBankCode: BankCodeEnum.SCB.Code, // "014" - SCB
-		RefNameTh:   "จอห์น โด",            // customer Thai name
-		RefNameEn:   "John Doe",            // customer English name
-		RefUserId:   "user123",             // user ID in your system
+		OrderId:     fmt.Sprintf("TEST-DEP-%d", ts),              // unique order ID per run
+		Amount:      1000.00,                                     // deposit amount in THB
+		RefAccount:  fmt.Sprintf("%d", ts%9000000000+1000000000), // unique 10-digit account per run
+		RefBankCode: BankCodeEnum.SCB.Code,                       // "014" - SCB
+		RefNameTh:   "จอห์น โด",                                  // customer Thai name
+		RefNameEn:   "John Doe",                                  // customer English name
+		RefUserId:   fmt.Sprintf("user-%d", ts),                  // unique user ID per run
 		Ref1:        "ref-data-1",
 		Ref2:        "ref-data-2",
 	}

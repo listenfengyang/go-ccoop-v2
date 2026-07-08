@@ -1,7 +1,6 @@
 package go_ccoop_v2
 
 import (
-	"crypto/tls"
 	"fmt"
 	"strconv"
 
@@ -45,7 +44,6 @@ func (cli *Client) Withdraw(req CCoopV2WithdrawRequest) (*CCoopV2WithdrawRespons
 	var result CCoopV2WithdrawResponse
 
 	resp, err := cli.ryClient.
-		SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).
 		R().
 		SetBody(body).

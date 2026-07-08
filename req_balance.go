@@ -1,7 +1,6 @@
 package go_ccoop_v2
 
 import (
-	"crypto/tls"
 	"fmt"
 
 	jsoniter "github.com/json-iterator/go"
@@ -23,7 +22,6 @@ func (cli *Client) GetBalance() (*CCoopV2BalanceResponse, error) {
 	var result CCoopV2BalanceResponse
 
 	resp, err := cli.ryClient.
-		SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).
 		R().
 		SetHeaders(headers).

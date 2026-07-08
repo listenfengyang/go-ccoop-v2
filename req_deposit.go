@@ -1,7 +1,6 @@
 package go_ccoop_v2
 
 import (
-	"crypto/tls"
 	"fmt"
 	"strconv"
 
@@ -44,7 +43,6 @@ func (cli *Client) Deposit(req CCoopV2DepositRequest) (*CCoopV2DepositResponse, 
 	var result CCoopV2DepositResponse
 
 	resp, err := cli.ryClient.
-		SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).
 		R().
 		SetBody(body).
