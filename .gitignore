@@ -1,0 +1,27 @@
+# Secret configuration - DO NOT commit
+config.go
+
+# macOS
+.DS_Store
+
+# IDE
+.idea
+.vscode/
+*.iws
+*.iml
+*.ipr
+*.project
+*.classpath
+*.metadata
+
+# Go
+vendor/
+coverage.out
+bin/
+
+# Logs
+logs/
+
+# Build artifacts
+*.exe
+*.test
