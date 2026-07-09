@@ -73,7 +73,7 @@ func genDepositRequestDemo() CCoopV2DepositRequest {
 		OrderId:     fmt.Sprintf("TEST-DEP-%d", ts),              // unique order ID per run
 		Amount:      1000.00,                                     // deposit amount in THB
 		RefAccount:  fmt.Sprintf("%d", ts%9000000000+1000000000), // unique 10-digit account per run
-		RefBankCode: BankCodeEnum.SCB.Code,                       // "014" - SCB
+		RefBankCode: "",                                          //BankCodeEnum.SCB.Code,                       // "014" - SCB
 		RefNameTh:   "จอห์น โด",                                  // customer Thai name
 		RefNameEn:   "John Doe",                                  // customer English name
 		RefUserId:   fmt.Sprintf("user-%d", ts),                  // unique user ID per run

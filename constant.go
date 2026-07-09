@@ -2,9 +2,10 @@ package go_ccoop_v2
 
 // API endpoint paths
 const (
-	EndpointCreateDeposit  = "/api/v1/client/create_deposit"
-	EndpointCreateWithdraw = "/api/v1/client/create_withdraw"
-	EndpointGetBalance     = "/api/v1/client/get_balance"
+	EndpointCreateDeposit        = "/api/v1/client/create_deposit"
+	EndpointCreateWithdraw       = "/api/v1/client/create_withdraw"
+	EndpointGetBalance           = "/api/v1/client/get_balance"
+	EndpointResendCallbackForTxn = "/api/v1/client/resend_callback_for_transaction"
 )
 
 // BankCode represents a Thai bank code entry

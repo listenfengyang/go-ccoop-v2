@@ -39,6 +39,13 @@ func (cli *Client) GetBalance() (*CCoopV2BalanceResponse, error) {
 	}
 
 	if resp.StatusCode() != 200 {
+		var errBody struct {
+			Detail string `json:"detail"`
+		}
+		_ = jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(resp.Body(), &errBody)
+		if errBody.Detail != "" {
+			return nil, fmt.Errorf("get balance failed: %s", errBody.Detail)
+		}
 		return nil, fmt.Errorf("get balance failed, status code: %d, body: %s", resp.StatusCode(), resp.Body())
 	}
 

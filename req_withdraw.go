@@ -62,6 +62,13 @@ func (cli *Client) Withdraw(req CCoopV2WithdrawRequest) (*CCoopV2WithdrawRespons
 	}
 
 	if resp.StatusCode() != 200 {
+		var errBody struct {
+			Detail string `json:"detail"`
+		}
+		_ = jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(resp.Body(), &errBody)
+		if errBody.Detail != "" {
+			return nil, fmt.Errorf("withdraw failed: %s", errBody.Detail)
+		}
 		return nil, fmt.Errorf("withdraw failed, status code: %d, body: %s", resp.StatusCode(), resp.Body())
 	}
 
