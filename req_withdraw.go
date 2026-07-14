@@ -19,7 +19,12 @@ import (
 //   - To re-check status, use the Resend Callback endpoint only.
 //   - Do NOT send retries under any circumstances.
 func (cli *Client) Withdraw(req CCoopV2WithdrawRequest) (*CCoopV2WithdrawResponse, error) {
-	rawURL := cli.Params.BaseUrl + EndpointCreateWithdraw
+	// Use WithdrawBaseUrl if configured, otherwise fall back to BaseUrl
+	baseUrl := cli.Params.WithdrawBaseUrl
+	if baseUrl == "" {
+		baseUrl = cli.Params.BaseUrl
+	}
+	rawURL := baseUrl + EndpointCreateWithdraw
 
 	// Fill in the default callback URL if not specified in the request
 	if req.CallbackUrl == "" && cli.Params.WithdrawCallbackUrl != "" {

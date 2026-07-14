@@ -29,6 +29,7 @@ func newTestClient() *Client {
 		ApiKey:              API_KEY,
 		SecretKey:           SECRET_KEY,
 		BaseUrl:             BASE_URL,
+		WithdrawBaseUrl:     WITHDRAW_BASE_URL,
 		DepositCallbackUrl:  DEPOSIT_CALLBACK_URL,
 		WithdrawCallbackUrl: WITHDRAW_CALLBACK_URL,
 	})

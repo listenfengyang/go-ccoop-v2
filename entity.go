@@ -6,7 +6,8 @@ type CCoopV2InitParams struct {
 	ApiKey      string `json:"apiKey" mapstructure:"apiKey" yaml:"apiKey"`                // x-api-key header
 	SecretKey   string `json:"secretKey" mapstructure:"secretKey" yaml:"secretKey"`       // used to generate x-signature
 
-	BaseUrl string `json:"baseUrl" mapstructure:"baseUrl" yaml:"baseUrl"` // e.g. https://your-api-domain.com
+	BaseUrl         string `json:"baseUrl" mapstructure:"baseUrl" yaml:"baseUrl"`                         // base URL for deposit API, e.g. https://service.ovpv1.com/
+	WithdrawBaseUrl string `json:"withdrawBaseUrl" mapstructure:"withdrawBaseUrl" yaml:"withdrawBaseUrl"` // base URL for withdraw API, e.g. https://service2.ovpv1.com/
 
 	DepositCallbackUrl  string `json:"depositCallbackUrl" mapstructure:"depositCallbackUrl" yaml:"depositCallbackUrl"`    // default deposit callback URL
 	WithdrawCallbackUrl string `json:"withdrawCallbackUrl" mapstructure:"withdrawCallbackUrl" yaml:"withdrawCallbackUrl"` // default withdraw callback URL
