@@ -16,12 +16,13 @@ type RestyRequest struct {
 }
 
 type RestyResponse struct {
-	StatusCode int         `json:"status_code"`
-	Status     string      `json:"status"`
-	Headers    http.Header `json:"headers"`
-	Body       string      `json:"body"`
-	ReceivedAt time.Time   `json:"received_at"`
-	Rtt        int64       `json:"rtt"`
+	StatusCode      int         `json:"status_code"`
+	Status          string      `json:"status"`
+	Headers         http.Header `json:"headers"`
+	Body            string      `json:"body"`
+	ReceivedAt      time.Time   `json:"received_at"`
+	Rtt             int64       `json:"rtt"`
+	CloudflareRayId string      `json:"cf_ray,omitempty"` // Cloudflare Ray ID from CF-Ray response header
 }
 
 type RestyLog struct {
@@ -45,12 +46,13 @@ func GetRestyLog(resp *resty.Response) RestyLog {
 			FormData: resp.Request.FormData,
 		},
 		Response: RestyResponse{
-			StatusCode: resp.StatusCode(),
-			Status:     resp.Status(),
-			Headers:    resp.Header(),
-			Body:       resp.String(),
-			ReceivedAt: resp.ReceivedAt(),
-			Rtt:        resp.Time().Milliseconds(),
+			StatusCode:      resp.StatusCode(),
+			Status:          resp.Status(),
+			Headers:         resp.Header(),
+			Body:            resp.String(),
+			ReceivedAt:      resp.ReceivedAt(),
+			Rtt:             resp.Time().Milliseconds(),
+			CloudflareRayId: resp.Header().Get("CF-Ray"),
 		},
 	}
 }
